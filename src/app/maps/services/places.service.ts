@@ -38,6 +38,13 @@ export class PlacesService {
     if (!this.useLocation) throw new Error('No hay user location');
 
     //todo: evaluar cuando el query es nulo
+
+    if (query.length === 0) {
+      this.isLoadingPlaces = false;
+      this.places = [];
+      return;
+    }
+
     this.isLoadingPlaces = true;
 
     this.placesApi
@@ -47,8 +54,6 @@ export class PlacesService {
         },
       })
       .subscribe((res) => {
-        console.log(res.features);
-
         this.isLoadingPlaces = false;
         this.places = res.features;
       });
